@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
           preferredSize:
               Size.fromHeight(MediaQuery.of(context).size.height * 0.2),
           child: AppBar(
-            backgroundColor: Colors.purple,
+            backgroundColor: Color.fromRGBO(2, 177, 60, 1),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               title: Row(
@@ -43,7 +43,10 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        body: const MyCard(),
+        body: const MyCard(
+          greeting: '',
+          balance: '',
+        ),
       ),
     );
   }
@@ -74,34 +77,108 @@ class MyCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const CircleAvatar(
-                  child: Icon(Icons.account_circle, color: Colors.white),
+                Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(16.0),
+                      decoration: BoxDecoration(
+                          border: Border(
+                              left: BorderSide(
+                                  width: 4.0,
+                                  color: Color.fromRGBO(2, 177, 60, 1)))),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                "Saldo Geral:",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Text("R\$ 4500.00"),
+                            ],
+                          )
+                        ],
+                      ),
+                    )
+                  ],
                 ),
-                const SizedBox(width: 10),
+                Icon(Icons.visibility_off)
+              ],
+            ),
+            SizedBox(
+                height: 20), // Espaço entre o container e a linha horizontal
+            Divider(
+              color: Colors.grey,
+              height: 20,
+              thickness: 1,
+              indent: 20,
+              endIndent: 20,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 Text(
-                  greeting,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
+                  "Meus Gastos :",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
+            SizedBox(height: 20.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.shopping_cart),
+                    SizedBox(width: 15.0),
+                    Text("Supermarket"),
+                  ],
+                ),
+                Text(
+                  "R\$ 500.00",
+                  style: TextStyle(
+                      color: Colors.blueAccent, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
-            const SizedBox(height: 10),
-            const Icon(Icons.notifications),
-            const SizedBox(height: 20),
-            Text(
-              "Saldo Geral:",
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-              ),
+            SizedBox(height: 15.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.receipt_long),
+                    SizedBox(width: 10),
+                    Text("Electricity bill"),
+                  ],
+                ),
+                Text(
+                  "R\$ 200.00",
+                  style: TextStyle(
+                      color: Colors.blueAccent, fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
-            Text(
-              balance,
-              style: const TextStyle(
-                fontSize: 20,
-              ),
+            SizedBox(height: 15.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.credit_card),
+                    SizedBox(width: 10),
+                    Text("Credit card"),
+                  ],
+                ),
+                Text(
+                  "R\$ 1000.00",
+                  style: TextStyle(
+                      color: Colors.blueAccent, fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
           ],
         ),
