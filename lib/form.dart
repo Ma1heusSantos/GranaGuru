@@ -33,7 +33,7 @@ class _FormularioState extends State<Formulario> {
                     categoria = novaCategoria!;
                   });
                 },
-                items: <String>['Supermarket', 'Credit Card', 'Eltric Bill']
+                items: <String>['Supermarket', 'Credit Card', 'Eletric Bill']
                     .map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,

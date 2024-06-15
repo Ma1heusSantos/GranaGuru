@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:granaguru/data/dummy_gastos.dart';
+import 'package:granaguru/models/gasto.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
-// eu tenho que colocar na pagina principal o header e a bottom bar e ir mudando somente o conteudo.
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -31,7 +32,6 @@ class _MyHomePageState extends State<MyHomePage> {
 class MyCard extends StatelessWidget {
   final String greeting;
   final String balance;
-
   MyCard({
     Key? key,
     required this.greeting,
@@ -40,6 +40,8 @@ class MyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<Gasto> gastos = DUMMY_GASTOS.values.toList();
+
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       child: Card(
@@ -111,58 +113,34 @@ class MyCard extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 20.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Icon(Icons.shopping_cart),
-                      SizedBox(width: 15.0),
-                      Text("Supermarket"),
-                    ],
-                  ),
-                  Text(
-                    "R\$ 500.00",
-                    style: TextStyle(
-                        color: Colors.blueAccent, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              SizedBox(height: 15.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Icon(Icons.receipt_long),
-                      SizedBox(width: 10),
-                      Text("Electricity bill"),
-                    ],
-                  ),
-                  Text(
-                    "R\$ 200.00",
-                    style: TextStyle(
-                        color: Colors.blueAccent, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              SizedBox(height: 15.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Icon(Icons.credit_card),
-                      SizedBox(width: 10),
-                      Text("Credit card"),
-                    ],
-                  ),
-                  Text(
-                    "R\$ 1000.00",
-                    style: TextStyle(
-                        color: Colors.blueAccent, fontWeight: FontWeight.bold),
-                  ),
-                ],
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: gastos.length,
+                itemBuilder: (context, index) {
+                  final gasto = gastos[index];
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            if (gasto.categoria != null)
+                              gasto.getIconForCategory(gasto.categoria),
+                            SizedBox(width: 15.0),
+                            Text(gasto.categoria ?? "Sem categoria"),
+                          ],
+                        ),
+                        Text(
+                          "R\$ ${gasto.valor.toStringAsFixed(2)}",
+                          style: TextStyle(
+                              color: Colors.blueAccent,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
             ],
           ),
