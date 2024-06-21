@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class Gasto {
-  final String? id;
+  final String id;
   final String descricao;
   final double valor;
   final String categoria;
 
   const Gasto(
-      {this.id,
+      {required this.id,
       required this.descricao,
       required this.valor,
       required this.categoria});

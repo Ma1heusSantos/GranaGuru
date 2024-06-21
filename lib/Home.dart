@@ -1,47 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:granaguru/data/dummy_gastos.dart';
-import 'package:granaguru/models/gasto.dart';
+import './models/gasto.dart';
+import 'components/gasto_list.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class MyHomePage extends StatelessWidget {
+  final List<Gasto> gastos;
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int indexAtual = 0;
+  const MyHomePage({Key? key, required this.gastos}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.grey[200],
       child: Column(
-        children: [
-          MyCard(
-            greeting: '',
-            balance: '',
-          ),
-          cardEquilibrio()
-        ],
+        children: [MyCard(gastos: gastos), cardEquilibrio()],
       ),
     );
   }
 }
 
 class MyCard extends StatelessWidget {
-  final String greeting;
-  final String balance;
-  MyCard({
-    Key? key,
-    required this.greeting,
-    required this.balance,
-  }) : super(key: key);
+  final List<Gasto> gastos;
+
+  const MyCard({Key? key, required this.gastos}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final List<Gasto> gastos = DUMMY_GASTOS.values.toList();
-
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       child: Card(
@@ -113,35 +96,7 @@ class MyCard extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 20.0),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: gastos.length,
-                itemBuilder: (context, index) {
-                  final gasto = gastos[index];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            if (gasto.categoria != null)
-                              gasto.getIconForCategory(gasto.categoria),
-                            SizedBox(width: 15.0),
-                            Text(gasto.categoria ?? "Sem categoria"),
-                          ],
-                        ),
-                        Text(
-                          "R\$ ${gasto.valor.toStringAsFixed(2)}",
-                          style: TextStyle(
-                              color: Colors.blueAccent,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+              GastoList(gastos: gastos)
             ],
           ),
         ),
@@ -151,9 +106,7 @@ class MyCard extends StatelessWidget {
 }
 
 class cardEquilibrio extends StatelessWidget {
-  cardEquilibrio({
-    Key? key,
-  }) : super(key: key);
+  const cardEquilibrio({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
