@@ -61,7 +61,7 @@ class MyCard extends StatelessWidget {
                                   "Saldo Geral:",
                                   style: TextStyle(color: Colors.grey),
                                 ),
-                                Text("R\$ 4500.00",
+                                Text("R\$ 0.38",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18)),
